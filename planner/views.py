@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from planner.forms import WorkerCreationForm
-from planner.models import TaskType, Worker
+from planner.models import TaskType, Worker, Task
 
 
 class TaskTypeListView(generic.ListView):
@@ -46,9 +46,35 @@ class WorkerDetailView(generic.DetailView):
 
 class WorkerUpdateView(generic.UpdateView):
     model = Worker
-    success_url = reverse_lazy("planner:worker-list")
+    success_url = reverse_lazy("planner:worker-detail")
 
 
 class WorkerDeleteView(generic.DeleteView):
     model = Worker
     success_url = reverse_lazy("planner:worker-list")
+
+
+class TaskListView(generic.ListView):
+    model = Task
+    paginate_by = 10
+
+
+class TaskCreateView(generic.CreateView):
+    model = Task
+    fields = "__all__"
+    success_url = reverse_lazy("planner:task-detail")
+
+
+class TaskDetailView(generic.DetailView):
+    model = Task
+    queryset = Task.objects.prefetch_related("assignees")
+
+
+class TaskUpdateView(generic.UpdateView):
+    model = Task
+    success_url = reverse_lazy("planner:task-detail")
+
+
+class TaskDeleteView(generic.DeleteView):
+    model = Worker
+    success_url = reverse_lazy("planner:task-detail")
