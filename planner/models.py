@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 
 
 class TaskType(models.Model):
@@ -21,7 +22,8 @@ class Worker(AbstractUser):
         Position,
         null=True,
         on_delete=models.SET_NULL,
-        related_name="workers"
+        related_name="workers",
+        blank=True
     )
 
     class Meta:
@@ -30,6 +32,9 @@ class Worker(AbstractUser):
 
     def __str__(self) -> str:
         return f"{self.username} ({self.first_name} {self.last_name})"
+
+    def get_absolute_url(self):
+        return reverse("planner:worker-detail", kwargs={"pk": self.pk})
 
 
 class Task(models.Model):
