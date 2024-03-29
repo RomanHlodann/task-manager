@@ -20,3 +20,9 @@ class TaskTypeUpdateView(generic.UpdateView):
     model = TaskType
     fields = "__all__"
     success_url = reverse_lazy("planner:task-type-list")
+
+
+class TaskTypeDeleteView(generic.DeleteView):
+    model = TaskType
+    fields = "__all__"
+    success_url = reverse_lazy("planner:task-type-list")
