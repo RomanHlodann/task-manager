@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from planner.forms import WorkerCreationForm
-from planner.models import TaskType, Worker, Task
+from planner.models import TaskType, Worker, Task, Position
 
 
 class TaskTypeListView(generic.ListView):
@@ -77,4 +77,25 @@ class TaskUpdateView(generic.UpdateView):
 
 class TaskDeleteView(generic.DeleteView):
     model = Worker
-    success_url = reverse_lazy("planner:task-detail")
+    success_url = reverse_lazy("planner:task-list")
+
+
+class PositionListView(generic.ListView):
+    model = Position
+    paginate_by = 10
+
+
+class PositionCreateView(generic.CreateView):
+    model = Position
+    fields = "__all__"
+    success_url = reverse_lazy("planner:position-detail")
+
+
+class PositionUpdateView(generic.UpdateView):
+    model = Position
+    success_url = reverse_lazy("planner:position-detail")
+
+
+class PositionDeleteView(generic.DeleteView):
+    model = Position
+    success_url = reverse_lazy("planner:position-list")

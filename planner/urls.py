@@ -14,7 +14,11 @@ from planner.views import (
     TaskCreateView,
     TaskUpdateView,
     TaskDeleteView,
-    TaskDetailView
+    TaskDetailView,
+    PositionListView,
+    PositionCreateView,
+    PositionUpdateView,
+    PositionDeleteView
 )
 
 
@@ -33,6 +37,10 @@ urlpatterns = [
     path('task/<int:pk>/', TaskDetailView.as_view(), name="task-detail"),
     path('task/<int:pk>/update', TaskUpdateView.as_view(), name="task-update"),
     path('task/<int:pk>/delete', TaskDeleteView.as_view(), name="task-delete"),
+    path('position/', PositionListView.as_view(), name="task-list"),
+    path('position/create', PositionCreateView.as_view(), name="task-create"),
+    path('position/<int:pk>/update', PositionUpdateView.as_view(), name="task-update"),
+    path('position/<int:pk>/delete', PositionDeleteView.as_view(), name="task-delete"),
 ]
 
 app_name = "planner"
