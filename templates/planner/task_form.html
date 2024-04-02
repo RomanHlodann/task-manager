@@ -18,12 +18,12 @@
           </a>
         </li>
         <li class="breadcrumb-item"><a href="#">Tasks</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Create</li>
+        <li class="breadcrumb-item active" aria-current="page">{{ object|yesno:"Update,Create" }}</li>
       </ol>
     </nav>
     <div class="d-flex justify-content-between w-100 flex-wrap">
       <div class="mb-3 mb-lg-0">
-        <h1 class="h4">Create Task</h1>
+        <h1 class="h4">{{ object|yesno:"Update,Create" }} Task</h1>
       </div>
     </div>
   </div>
