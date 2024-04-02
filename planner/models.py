@@ -47,10 +47,11 @@ class Task(models.Model):
         (LOW, 'Low'),
         (MEDIUM, 'Medium'),
         (HIGH, 'High'),
+        (URGENT, 'Urgent'),
     )
 
     name = models.CharField(max_length=100, unique=True)
-    description = models.CharField(max_length=255)
+    description = models.TextField(max_length=255)
     deadline = models.DateTimeField()
     is_completed = models.BooleanField()
     priority = models.CharField(max_length=6, choices=PRIORITY_CHOICES)
