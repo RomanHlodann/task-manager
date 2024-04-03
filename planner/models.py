@@ -38,10 +38,10 @@ class Worker(AbstractUser):
 
 
 class Task(models.Model):
-    URGENT = 'urgent'
-    LOW = 'low'
-    MEDIUM = 'medium'
-    HIGH = 'high'
+    URGENT = 'Urgent'
+    LOW = 'Low'
+    MEDIUM = 'Medium'
+    HIGH = 'High'
 
     PRIORITY_CHOICES = (
         (LOW, 'Low'),
