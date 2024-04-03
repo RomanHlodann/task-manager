@@ -31,3 +31,15 @@ class TaskCreationForm(forms.ModelForm):
 
 class TaskSearchForm(forms.Form):
     name = forms.CharField(max_length=100, required=False, label="")
+
+
+class PositionSearchForm(forms.Form):
+    name = forms.CharField(max_length=100, required=False, label="")
+
+
+class TaskTypeSearchForm(forms.Form):
+    name = forms.CharField(max_length=100, required=False, label="")
+
+
+class WorkerSearchForm(forms.Form):
+    username = forms.CharField(max_length=100, required=False, label="")
