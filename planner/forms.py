@@ -28,3 +28,6 @@ class TaskCreationForm(forms.ModelForm):
         model = Task
         fields = "__all__"
 
+
+class TaskSearchForm(forms.Form):
+    name = forms.CharField(max_length=100, required=False, label="")
