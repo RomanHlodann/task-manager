@@ -60,7 +60,7 @@
                   {{ form.priority|as_crispy_field }}
                 </div>
             </div>
-            <input type="submit" value="Create">
+            <input type="submit" value="{{ object|yesno:"Save,Create" }}" class="btn btn-gray-800 mt-2 animate-up-2">
           </form>
           
         </div>
