@@ -53,6 +53,18 @@
         </form>
       </div>
     </div>
+    <form action="" method="get" id="user_task_form" class="mt-2">
+      {% csrf_token %}
+      {{ user_task_form.find_my_task|add_class:"form-check-input" }}
+      <label class="form-check-label" for="id_find_my_task">
+        Only my tasks
+      </label>
+    </form>
+    <script>
+        document.getElementById('id_find_my_task').addEventListener('change', function() {
+            document.getElementById('user_task_form').submit();
+        });
+    </script>
   </div>
   <div class="card card-body border-0 shadow table-wrapper table-responsive">
     <table class="table table-hover">
@@ -82,9 +94,9 @@
             </td>
             <td>
               {% if task.is_completed %}
-                <i class="fa-solid fa-check" style="color: #63E6BE"></i>
+                <span class="fw-normal" style="color: green">Completed</span>
                 {% elif task.deadline.date < today.date %}
-                  <i class="fa-regular fa-circle-xmark" style="color: #63E6BE;"></i>
+                <span class="fw-normal" style="color: red;">Failure</span>
                 {% else %}
                   <span class="fw-normal">In progress</span>
               {% endif %}
@@ -116,6 +128,7 @@
                 <span class="visually-hidden">Toggle Dropdown</span>
               </button>
               <div class="dropdown-menu py-0">
+                <a class="dropdown-item rounded-top" href="{% url 'planner:task-change_to_completed' task.id %}"><span class="fas fa-check"></span>Mark as completed</a>
                 <a class="dropdown-item rounded-top" href="{% url 'planner:task-detail' task.id %}"><span class="fas fa-eye me-2"></span>View Details</a>
                 <a class="dropdown-item" href="{% url 'planner:task-update' task.id %}"><span class="fas fa-edit me-2"></span>Edit</a>
                 <a class="dropdown-item text-danger rounded-bottom" href="{% url 'planner:task-delete' task.id %}"><span
