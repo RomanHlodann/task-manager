@@ -3,6 +3,7 @@ from django.urls import path
 from planner.views import (
     index,
     change_to_completed_task,
+    remove_assignee_from_task,
     TaskTypeListView,
     TaskTypeCreateView,
     TaskTypeUpdateView,
@@ -40,7 +41,8 @@ urlpatterns = [
     path("task/<int:pk>/", TaskDetailView.as_view(), name="task-detail"),
     path("task/<int:pk>/update/", TaskUpdateView.as_view(), name="task-update"),
     path("task/<int:pk>/delete/", TaskDeleteView.as_view(), name="task-delete"),
-    path("task/<int:pk>/change_to_completed", change_to_completed_task, name="task-change_to_completed"),
+    path("task/<int:pk>/change_to_completed", change_to_completed_task, name="task-change-to-completed"),
+    path("task/<int:task_id>/remove/<int:assignee_id>", remove_assignee_from_task, name="task-remove-assignee"),
     path("position/", PositionListView.as_view(), name="position-list"),
     path("position/create/", PositionCreateView.as_view(), name="position-create"),
     path("position/<int:pk>/update/", PositionUpdateView.as_view(), name="position-update"),
