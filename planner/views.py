@@ -1,13 +1,13 @@
 from datetime import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
 from planner.forms import WorkerCreationForm, TaskCreationForm, TaskSearchForm, PositionSearchForm, TaskTypeSearchForm, \
-    WorkerSearchForm
+    WorkerSearchForm, SearchUserTaskForm
 from planner.models import TaskType, Worker, Task, Position
 
 
@@ -76,6 +76,7 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
 class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     model = Worker
     form_class = WorkerCreationForm
+    success_url = reverse_lazy("planner:worker-list")
 
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
@@ -94,6 +95,13 @@ class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("planner:worker-list")
 
 
+def change_to_completed_task(request: HttpRequest, pk: int) -> HttpResponse:
+    task = Task.objects.get(id=pk)
+    task.is_completed = True
+    task.save()
+    return HttpResponseRedirect(reverse_lazy("planner:task-list"))
+
+
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     paginate_by = 5
@@ -101,18 +109,26 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
+        find_my_task = self.request.GET.get("find_my_task", False)
         today = datetime.today()
         context["today"] = today
         context["search_form"] = TaskSearchForm(
             initial={"name": name}
         )
+        context["user_task_form"] = SearchUserTaskForm(
+            initial={"find_my_task": find_my_task}
+        )
         return context
 
     def get_queryset(self):
         queryset = Task.objects.select_related("task_type")
-        form = TaskSearchForm(self.request.GET)
-        if form.is_valid():
-            return queryset.filter(name__icontains=form.cleaned_data["name"])
+        search_form = TaskSearchForm(self.request.GET)
+        user_task_form = SearchUserTaskForm(self.request.GET)
+        if search_form.is_valid():
+            queryset = queryset.filter(name__icontains=search_form.cleaned_data["name"])
+        if user_task_form.is_valid() and user_task_form.cleaned_data.get("find_my_task", False):
+            t = user_task_form.cleaned_data.get("find_my_task", False)
+            queryset = queryset.filter(id=self.request.user.id)
         return queryset
 
 
