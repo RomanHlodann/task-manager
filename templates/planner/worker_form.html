@@ -33,6 +33,16 @@
           <div class="col-md-6 mb-3">
             {{ form.position|as_crispy_field  }}
           </div>
+          {% if not object %}
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                {{ form.password1|as_crispy_field }}
+              </div>
+              <div class="col-md-6 mb-3">
+                {{ form.password2|as_crispy_field }}
+              </div>
+            </div>
+          {% endif %}
           <input type="submit" value="Save" class="btn btn-gray-800 mt-2 animate-up-2">
         </form>
       </div>
