@@ -128,7 +128,7 @@
                 <span class="visually-hidden">Toggle Dropdown</span>
               </button>
               <div class="dropdown-menu py-0">
-                <a class="dropdown-item rounded-top" href="{% url 'planner:task-change_to_completed' task.id %}"><span class="fas fa-check"></span>Mark as completed</a>
+                <a class="dropdown-item rounded-top" href="{% url 'planner:task-change-to-completed' task.id %}"><span class="fas fa-check"></span>Mark as completed</a>
                 <a class="dropdown-item rounded-top" href="{% url 'planner:task-detail' task.id %}"><span class="fas fa-eye me-2"></span>View Details</a>
                 <a class="dropdown-item" href="{% url 'planner:task-update' task.id %}"><span class="fas fa-edit me-2"></span>Edit</a>
                 <a class="dropdown-item text-danger rounded-bottom" href="{% url 'planner:task-delete' task.id %}"><span
