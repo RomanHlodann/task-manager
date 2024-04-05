@@ -33,6 +33,10 @@ class TaskSearchForm(forms.Form):
     name = forms.CharField(max_length=100, required=False, label="")
 
 
+class SearchUserTaskForm(forms.Form):
+    find_my_task = forms.BooleanField(label=False, required=False)
+
+
 class PositionSearchForm(forms.Form):
     name = forms.CharField(max_length=100, required=False, label="")
 
