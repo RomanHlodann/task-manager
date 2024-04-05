@@ -87,7 +87,7 @@ class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
 class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Worker
     fields = "__all__"
-    success_url = reverse_lazy("planner:worker-detail")
+    success_url = reverse_lazy("planner:worker-list")
 
 
 class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -100,6 +100,13 @@ def change_to_completed_task(request: HttpRequest, pk: int) -> HttpResponse:
     task.is_completed = True
     task.save()
     return HttpResponseRedirect(reverse_lazy("planner:task-list"))
+
+
+def remove_assignee_from_task(request: HttpRequest, task_id: int, assignee_id: int) -> HttpResponse:
+    task = Task.objects.get(id=task_id)
+    assignee = Worker.objects.get(id=assignee_id)
+    task.assignees.remove(assignee)
+    return HttpResponseRedirect(reverse_lazy("planner:task-detail", kwargs={'pk': task_id}))
 
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
@@ -135,7 +142,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
     form_class = TaskCreationForm
-    success_url = reverse_lazy("planner:task-detail")
+    success_url = reverse_lazy("planner:task-list")
 
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
@@ -146,7 +153,7 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
     form_class = TaskCreationForm
-    success_url = reverse_lazy("planner:task-detail")
+    success_url = reverse_lazy("planner:task-list")
 
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
