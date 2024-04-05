@@ -1,0 +1,67 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block content %}
+  <div class="row gutters-sm mt-4">
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex flex-column align-items-center text-center">
+            <img src="{% static 'assets/img/team/profile-picture-0.jpg' %}" alt="Admin" class="rounded-circle" width="150">
+            <div class="mt-3">
+              <h4>{{ worker.first_name }} {{ worker.last_name }}</h4>
+              <p class="mb-1">{{ worker.position.name }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Username</h6>
+                    </div>
+                    <div class="col-sm-9">
+                      {{ worker.username }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Full Name</h6>
+                    </div>
+                    <div class="col-sm-9">
+                      {{ worker.first_name }} {{ worker.last_name }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9">
+                      {{ worker.email }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Position</h6>
+                    </div>
+                    <div class="col-sm-9">
+                      {{ worker.position }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <a class="btn btn-sm btn-gray-800 " target="__blank" href="{% url 'planner:worker-update' worker.id %}">Edit</a>
+                      <a class="btn btn-sm btn-danger " target="__blank" href="{% url 'planner:worker-delete' worker.id %}">Delete account</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    </div>
+  </div>
+{% endblock %}
