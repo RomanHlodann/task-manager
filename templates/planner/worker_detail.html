@@ -1,6 +1,7 @@
 {% extends 'includes/base.html' %}
 {% load static %}
 {% block content %}
+  <h5>My profile</h5>
   <div class="row gutters-sm mt-4">
     <div class="col-md-4 mb-3">
       <div class="card">
@@ -16,52 +17,52 @@
       </div>
     </div>
     <div class="col-md-8">
-              <div class="card mb-3">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Username</h6>
-                    </div>
-                    <div class="col-sm-9">
-                      {{ worker.username }}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Full Name</h6>
-                    </div>
-                    <div class="col-sm-9">
-                      {{ worker.first_name }} {{ worker.last_name }}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Email</h6>
-                    </div>
-                    <div class="col-sm-9">
-                      {{ worker.email }}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Position</h6>
-                    </div>
-                    <div class="col-sm-9">
-                      {{ worker.position }}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <a class="btn btn-sm btn-gray-800 " target="__blank" href="{% url 'planner:worker-update' worker.id %}">Edit</a>
-                      <a class="btn btn-sm btn-danger " target="__blank" href="{% url 'planner:worker-delete' worker.id %}">Delete account</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Username</h6>
+            </div>
+            <div class="col-sm-9">
+              {{ worker.username }}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Full Name</h6>
+            </div>
+            <div class="col-sm-9">
+              {{ worker.first_name }} {{ worker.last_name }}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Email</h6>
+            </div>
+            <div class="col-sm-9">
+              {{ worker.email }}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Position</h6>
+            </div>
+            <div class="col-sm-9">
+              {{ worker.position }}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-12">
+              <a class="btn btn-sm btn-gray-800 " target="__blank" href="{% url 'planner:worker-update' worker.id %}">Edit</a>
+              <a class="btn btn-sm btn-danger " target="__blank" href="{% url 'planner:worker-delete' worker.id %}">Delete account</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 {% endblock %}
