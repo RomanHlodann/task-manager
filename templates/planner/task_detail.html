@@ -1,0 +1,117 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block content %}
+  <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+    <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+      <li class="breadcrumb-item">
+        <a href="#">
+          <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+            </path>
+          </svg>
+        </a>
+      </li>
+      <li class="breadcrumb-item">Task</li>
+      <li class="breadcrumb-item active" aria-current="page">Detail</li>
+    </ol>
+  </nav>
+  <section class=" gray-bg mt-3" id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+        <div>
+          <h2>{{ task.name }}</h2>
+          <p>{{ task.description }}</p>
+          <div class="row">
+              <div class="col-md-6">
+                <div class="media">
+                  <h5>Deadline:</h5>
+                  <p>{{ task.deadline }}</p>
+                </div>
+                <div class="media">
+                  <h5>Is completed?</h5>
+                  <p>{{ task.is_completed }}</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="media">
+                  <h5>Priority:</h5>
+                  <p>{{ task.priority }}</p>
+                </div>
+                <div class="media">
+                  <h5>Task Type:</h5>
+                  <p>{{ task.task_type }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h5>Assignees:</h5>
+      <div class="card card-body border-0 shadow table-wrapper table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th class="border-gray-200">#</th>
+              <th class="border-gray-200">Username</th>
+              <th class="border-gray-200">First name</th>
+              <th class="border-gray-200">Last name</th>
+              <th class="border-gray-200">Email</th>
+              <th class="border-gray-200">Position</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for worker in task.assignees.all %}
+              <tr>
+                <td>
+                  <span class="fw-normal">{{ worker.id }}</span>
+                </td>
+                <td>
+                  <a href="{% url "planner:worker-detail" worker.id %}" class="fw-bold">
+                    {{ worker.username }}
+                  </a>
+                </td>
+                <td>
+                  <span class="fw-normal">{{ worker.first_name }}</span>
+                </td>
+                <td>
+                  <span class="fw-normal">{{ worker.last_name }}</span>
+                </td>
+                <td>
+                  <span class="fw-normal">{{ worker.email }}</span>
+                </td>
+                <td>
+                  <span class="fw-normal">{{ worker.position.name }}</span>
+                </td>
+                <td>
+                  <div class="btn-group">
+                  <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="icon icon-sm">
+                      <span class="fas fa-ellipsis-h icon-dark"></span>
+                    </span>
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                  </button>
+                  <div class="dropdown-menu py-0">
+                    <a class="dropdown-item rounded-top" href="{% url 'planner:worker-detail' worker.id %}"><span class="fas fa-eye me-2"></span>View Details</a>
+                    <a class="dropdown-item text-danger rounded-bottom" href="{% url 'planner:task-remove-assignee' task.id worker.id %}"><span
+                        class="fas fa-trash-alt me-2"></span>Remove</a>
+                  </div>
+                </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="row mt-3">
+        <div class="col-sm-12">
+          <a class="btn btn-sm btn-gray-800 " target="__blank" href="{% url 'planner:task-update' task.id %}">Edit</a>
+          <a class="btn btn-sm btn-danger " target="__blank" href="{% url 'planner:task-delete' task.id %}">Delete task</a>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
