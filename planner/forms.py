@@ -15,6 +15,13 @@ class WorkerCreationForm(UserCreationForm):
         )
 
 
+class WorkerUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Worker
+        fields = ["username", "first_name", "last_name",
+                  "email", "position"]
+
+
 class TaskCreationForm(forms.ModelForm):
     deadline = forms.DateTimeField(
         widget=forms.SelectDateWidget
