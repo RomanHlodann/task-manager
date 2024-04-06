@@ -59,7 +59,7 @@
                 <h4 class="h3">{{ worker.first_name }} {{ worker.last_name }}</h4>
                 <h5 class="fw-normal">
                   {% if worker.position %}
-                    worker.position.name
+                    {{ worker.position.name }}
                     {% else %}
                     Unemployed
                   {% endif %}
