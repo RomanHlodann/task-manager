@@ -1,13 +1,22 @@
 from datetime import datetime
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from planner.forms import WorkerCreationForm, TaskCreationForm, TaskSearchForm, PositionSearchForm, TaskTypeSearchForm, \
-    WorkerSearchForm, SearchUserTaskForm
+from planner.forms import (
+    WorkerCreationForm,
+    TaskCreationForm,
+    TaskSearchForm,
+    PositionSearchForm,
+    TaskTypeSearchForm,
+    WorkerSearchForm,
+    SearchUserTaskForm,
+    WorkerUpdateForm
+)
 from planner.models import TaskType, Worker, Task, Position
 
 
@@ -86,7 +95,7 @@ class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
 
 class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Worker
-    fields = "__all__"
+    form_class = WorkerUpdateForm
     success_url = reverse_lazy("planner:worker-list")
 
 
@@ -95,6 +104,7 @@ class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("planner:worker-list")
 
 
+@login_required
 def change_to_completed_task(request: HttpRequest, pk: int) -> HttpResponse:
     task = Task.objects.get(id=pk)
     task.is_completed = True
@@ -102,6 +112,7 @@ def change_to_completed_task(request: HttpRequest, pk: int) -> HttpResponse:
     return HttpResponseRedirect(reverse_lazy("planner:task-list"))
 
 
+@login_required
 def remove_assignee_from_task(request: HttpRequest, task_id: int, assignee_id: int) -> HttpResponse:
     task = Task.objects.get(id=task_id)
     assignee = Worker.objects.get(id=assignee_id)
