@@ -145,7 +145,6 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
         if search_form.is_valid():
             queryset = queryset.filter(name__icontains=search_form.cleaned_data["name"])
         if user_task_form.is_valid() and user_task_form.cleaned_data.get("find_my_task", False):
-            t = user_task_form.cleaned_data.get("find_my_task", False)
             queryset = queryset.filter(id=self.request.user.id)
         return queryset
 
