@@ -34,5 +34,13 @@ class TaskAdmin(admin.ModelAdmin):
                     "is_completed", "priority", "task_type")
 
 
-admin.site.register(TaskType)
-admin.site.register(Position)
+@admin.register(TaskType)
+class TaskTypeAdmin(admin.ModelAdmin):
+    search_fields = ("name", )
+    list_display = ("name", )
+
+
+@admin.register(Position)
+class PositionAdmin(admin.ModelAdmin):
+    search_fields = ("name", )
+    list_display = ("name", )
